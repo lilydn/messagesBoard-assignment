@@ -1,0 +1,48 @@
+/* flex children: 
+email input and validation label */ 
+.ui.form .field {
+  display: flex;
+}
+
+/* validation label */
+.ui.left.pointing.orange.basic.label {
+  display: none;
+}
+
+.ui.left.pointing.orange.basic.label[data-shown=true] {
+  display: block;
+  max-width: 26%;
+  line-height: 1.7;
+  animation: appear 5s infinite;
+  animation-delay: 300ms;
+}
+
+@keyframes appear {
+  from { opacity: 1; }
+  to   { opacity: 1; }
+}
+
+/* email input */
+.ui.form input[type=email][data-isValid=false] {
+  color: rgb(230, 107, 7);
+  width: 74%;
+  transition: width 200ms linear;
+}
+
+.ui.form input[type=email][data-isValid=true] {
+  transition: width 200ms linear;
+}
+
+
+/* limit the message-textarea grow */
+.ui.form textarea {
+  max-height: 100px;
+  min-height: 40px;
+}
+
+/* submit button */
+.ui.primary.button {
+  min-width: 90px;
+  margin-bottom: 10px;
+}
+

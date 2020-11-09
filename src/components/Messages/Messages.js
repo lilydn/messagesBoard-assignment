@@ -8,7 +8,6 @@ const Wrapper = styled.div`
 	height: 100%;
   display: flex;
   flex-direction: column;
-	/* max-height: 320px; */
 `;
 
 const InnerWrapper = styled.div`

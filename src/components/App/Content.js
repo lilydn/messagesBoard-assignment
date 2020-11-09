@@ -1,46 +1,46 @@
 import React from 'react';
 import fetchAvatarURL from '../../faces-api/uifaces';
+import utils from '../../utilities/util-functions';
 import FormContainer from '../Form/FormContainer';
 import MessagesContainer from '../Messages/MessagesContainer';
 import Form from '../Form/Form';
 import Messages from '../Messages/Messages';
 
+
 class Content extends React.Component {
-  state = { messagesList: [], avatarLoading: false };
-  
-  componentDidMount = () => {
-    const { predefinedList } = this.props;
-    predefinedList
-    ? this.setState({ messagesList: predefinedList })
-    : this.setState({ messagesList: [] });
-  }
+	state = { messagesList: null, avatarLoading: false };
+
+	componentDidMount = () => {
+		const storageData = utils().loadFromLocalStorage();
+		this.setState({ messagesList: storageData });
+	};
+
+	componentDidUpdate = () => {
+		const { messagesList } = this.state;
+		utils().writeToLocalStorage(messagesList);
+	};
 
 	onFormSubmit = async (email, message) => {
-    let avatar = null;
-    const { messagesList } = this.state;
-    const userExists = messagesList.find(message => message.email === email);
-
-    // if message from the same email exists,
-    // use it's existing avatar
-    if(userExists) {
-      avatar = userExists.avatar;
-    } else {  // else fetch a new random avatar
-      this.setState({ avatarLoading: true });
-      avatar = await fetchAvatarURL();
-    } 
-
-		
+		const { messagesList } = this.state;
+		let avatar = null;
+		const user = utils().userExists(email, messagesList);
+		// if a message from the same email exists,
+		// use the existing avatar
+		if (user) {
+			avatar = user.avatar;
+		} else {
+			// else fetch a new random avatar
+			this.setState({ avatarLoading: true });
+			avatar = await fetchAvatarURL();
+		}
 		const newMessage = {
 			email,
 			message,
 			avatar,
-    };
-    
-    const updatedList = messagesList;
-    updatedList.push(newMessage);
-    console.log(updatedList);
-    this.setState({ messagesList: updatedList, avatarLoading: false });
-	};
+		};
+		const updatedList = [...messagesList, newMessage];
+		this.setState({ messagesList: updatedList, avatarLoading: false });
+  };
 
 	render() {
 		const { messagesList, avatarLoading } = this.state;
@@ -48,11 +48,11 @@ class Content extends React.Component {
 		return (
 			<React.Fragment>
 				<FormContainer>
-					<Form onSubmit={this.onFormSubmit} isLoading={avatarLoading} />
+					<Form handleSubmit={this.onFormSubmit} isLoading={avatarLoading} />
 				</FormContainer>
 
 				<MessagesContainer>
-					<Messages messagesList={messagesList} />
+					{messagesList && <Messages messagesList={messagesList}/>}
 				</MessagesContainer>
 			</React.Fragment>
 		);

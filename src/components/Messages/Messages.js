@@ -5,67 +5,46 @@ import Message from './Message';
 
 const Wrapper = styled.div`
 	padding: 20px;
-	max-height: 320px;
+	height: 100%;
+  display: flex;
+  flex-direction: column;
+	/* max-height: 320px; */
 `;
 
 const InnerWrapper = styled.div`
-	margin: 10px 0;
-	max-height: inherit;
-	overflow-y: auto;
+	margin-top: 20px;
+	max-height: 100%;
+	overflow-y: scroll;
+	overflow-x: hidden;
 `;
-
-// class Messages extends React.Component {
-//   state = { filterTerm: '' };
-
-//   render () {
-//     return (
-//       <Wrapper>
-//         <FilterBar />
-//         <InnerWrapper>
-//           <Message />
-//           <Message />
-//           <Message />
-//         </InnerWrapper>
-//       </Wrapper>
-//     );
-//   }
-// }
 
 const Messages = ({ messagesList }) => {
 	
-  const [messagesToRender, setMessagesToRender] = useState(null);
+	const [filteredMessages, setFilteredMessages] = useState(null);
+	const [term, setTerm] = useState('');
 
   useEffect(() => {
-    setMessagesToRender(messagesList);
-	},[]);
-	console.log(messagesToRender)
+		setFilteredMessages([...messagesList]);
+	},[messagesList]);
 
-  const renderMessages = () => {
-		return messagesToRender && messagesToRender.map((messageObj, index) => {
-			console.log(messageObj)
-			return(
-			<Message key={index} messageObject={messageObj} />
-		)});
+
+	const renderMessages = () => {
+		const filter = filteredMessages.filter(
+			message =>
+				message.email.toLowerCase().includes(term) ||
+				message.message.toLowerCase().includes(term)
+		);
+		return filter.map((messageObj, index) => {
+			return <Message key={index} messageObject={messageObj} />;
+		});
 	};
 
-  const filterByTerm = (term) => {
-    const updatedList = messagesToRender.filter(
-      (messageObj) =>
-        messageObj.email.toLowerCase().includes(term) ||
-        messageObj.message.toLowerCase().includes(term)
-    );
-    setMessagesToRender(updatedList);
-    renderMessages();
-	}
-	const filteredContent = () => {
-		
-	}
 
 	return (
 		<Wrapper>
-			<FilterBar onInput={filterByTerm} />
+			<FilterBar onInput={setTerm} term={term} />
 			<InnerWrapper>
-        {renderMessages()}
+				{ filteredMessages && renderMessages() }
 			</InnerWrapper>
 		</Wrapper>
 	);

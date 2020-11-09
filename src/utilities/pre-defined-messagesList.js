@@ -1,6 +1,6 @@
 const exampleMessages = [
 	{
-		avatar: 'https://randomuser.me/api/portraits/men/88.jpg',
+		avatar: 'https://randomuser.me/api/portraits/men/86.jpg',
 		email: 'mischa.barton@gmail.com',
 		message: 'Hi',
 	},
@@ -20,11 +20,21 @@ const exampleMessages = [
 		message: 'Hello there. How are you?',
   },
   {
-		avatar: 'https://uifaces.co//our-content//donated//DK-JzW4X.jpg',
+		avatar: 'https://uifaces.co/our-content/donated/BMGfa1yq.png',
 		email: 'beau.simensen@gmail.com',
 		message: 'Good!',
   },
   {
+		avatar: 'https://randomuser.me/api/portraits/women/9.jpg',
+		email: 'eliza.coupe@gmail.com',
+		message: 'Great',
+	},
+	{
+		avatar: 'https://uifaces.co/our-content/donated/BMGfa1yq.png',
+		email: 'beau.simensen@gmail.com',
+		message: 'I just want to say that lorem ipsum dolor sit amet, consectetur adipiscing elit!',
+	},
+	{
 		avatar: 'https://randomuser.me/api/portraits/women/9.jpg',
 		email: 'eliza.coupe@gmail.com',
 		message: 'Goodbye :)',

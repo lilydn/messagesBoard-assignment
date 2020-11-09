@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import utils from '../../utilities/util-functions';
 import ValidationLabel from './ValidationLabel';
 import './Form.css';
 
@@ -10,40 +11,37 @@ const Wrapper = styled.div`
 class Form extends React.Component {
 	state = { email: '', message: '', isValidEmail: true };
 
-	onFormSubmit = e => {
-		// e.preventDefault();
+	onFormSubmit = () => {
 		const { email, message, isValidEmail } = this.state;
-		if (isValidEmail && email !== '') {
-			this.props.onSubmit(email, message);
+		if (isValidEmail && email && message) {
+			this.props.handleSubmit(email, message);
 		}
 	};
 
 	validateEmail = () => {
 		const { email } = this.state;
-		// eslint-disable-next-line
-		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		re.test(email.toLowerCase()) || email === ''
+		const valid = utils().validateEmail(email);
+		valid
 			? this.setState({ isValidEmail: true })
 			: this.setState({ isValidEmail: false });
 	};
 
-  ////////////////////
+	////////////////////
+
 	renderSubmitButton = () => {
-		const { isValidEmail } = this.state;
-		if (isValidEmail) {
-			return (
-				<button type='submit' className='ui primary right floated button' onClick={this.onFormSubmit}>
-						{this.renderButtonContent()}
-				</button>
-			);
-    }
-    else {
-      return (
-        <button type='submit' disabled={true} className='ui disabled primary right floated button' onClick={this.onFormSubmit}>
-					{this.renderButtonContent()}
-				</button>
-      );
-    }
+		const { email, message, isValidEmail } = this.state;
+		let disableBtn = !(email && message && isValidEmail);
+
+		return (
+			<button
+				type='submit'
+				disabled={disableBtn}
+				className='ui primary right floated button'
+				onClick={this.onFormSubmit}
+			>
+				{this.renderButtonContent()}
+			</button>
+		);
 	};
 
 	renderButtonContent = () => {
@@ -52,10 +50,10 @@ class Form extends React.Component {
 			return <span className='ui active tiny inverted inline loader'></span>;
 		}
 		return 'Submit';
-  };
-  
+	};
+
 	///////////////////////
-	
+
 	render() {
 		const { isValidEmail } = this.state;
 
@@ -71,6 +69,7 @@ class Form extends React.Component {
 							onBlur={this.validateEmail}
 							data-isvalid={isValidEmail}
 						/>
+						{/* label is not rendered if the field is empty: */}
 						<ValidationLabel type='email' show={!isValidEmail} />
 					</div>
 
@@ -83,8 +82,7 @@ class Form extends React.Component {
 						/>
 					</div>
 
-          {this.renderSubmitButton()}
-    
+					{this.renderSubmitButton()}
 				</div>
 			</Wrapper>
 		);

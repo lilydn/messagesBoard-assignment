@@ -1,41 +1,39 @@
 /* flex children: 
-email input and validation label */ 
+email input and validation label */
 .ui.form .field {
-  display: flex;
+	display: flex;
 }
 
 /* validation label */
 .ui.left.pointing.orange.basic.label {
-  display: none;
+	display: none;
 }
 
-.ui.left.pointing.orange.basic.label[data-shown=true] {
-  display: block;
-  max-width: 26%;
-  line-height: 1.7;
+.ui.left.pointing.orange.basic.label[data-shown='true'] {
+	display: block;
+	max-width: 26%;
+	line-height: 1.7;
 }
 
 /* email input */
-.ui.form input[type=email][data-isValid=false] {
-  color: rgb(230, 107, 7);
-  width: 70%;
-  transition: width 200ms linear;
+.ui.form input[type='email'][data-isValid='false'] {
+	color: rgb(230, 107, 7);
+	width: 70%;
+	transition: width 200ms linear;
 }
 
-.ui.form input[type=email][data-isValid=true] {
-  transition: width 200ms linear;
+.ui.form input[type='email'][data-isValid='true'] {
+	transition: width 200ms linear;
 }
-
 
 /* limit the message-textarea grow */
 .ui.form textarea {
-  max-height: 100px;
-  min-height: 40px;
+	max-height: 100px;
+	min-height: 40px;
 }
 
 /* submit button */
 .ui.primary.button {
-  min-width: 90px;
-  margin-bottom: 10px;
+	min-width: 90px;
+	margin-bottom: 10px;
 }
-

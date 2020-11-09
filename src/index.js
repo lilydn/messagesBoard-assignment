@@ -4,9 +4,8 @@ import './normalized.css';
 import App from './components/App/App';
 
 ReactDOM.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <App />,
-  // </React.StrictMode>,
+  </React.StrictMode>,
   document.querySelector('#root')
 );
-

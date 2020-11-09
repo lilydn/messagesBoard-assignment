@@ -1,9 +1,9 @@
 .ui.comments .comment .avatar {
-  height: 38px;
-  width: 38px;
+	height: 38px;
+	width: 38px;
 }
 
 .ui.comments .comment .avatar img,
 .ui.comments .comment img.avatar {
-  object-fit: cover;
+	object-fit: cover;
 }

@@ -1,6 +1,5 @@
 import predefinedList from './pre-defined-messagesList';
 
-
 // find if message from the same email exists to determine avatar
 const userExists = (email, messagesList) => {
 	const user = messagesList.find(
@@ -9,15 +8,13 @@ const userExists = (email, messagesList) => {
 	return user;
 };
 
-
 // email validation, if valid returns true
-// returns true if email is valid or empty 
-const validateEmail = (email) => {
-  // eslint-disable-next-line
-  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regex.test(email.toLowerCase()) || email === '';
+// returns true if email is valid or empty
+const validateEmail = email => {
+	// eslint-disable-next-line
+	const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return regex.test(email.toLowerCase()) || email === '';
 };
-
 
 // - localStorage - //
 // write data
@@ -33,14 +30,13 @@ const loadFromLocalStorage = () => {
 		: predefinedList;
 };
 
-
 // - - - - - - - - //
 
 export default function utils() {
-  return {
-    userExists,
-    validateEmail,
-    writeToLocalStorage,
-    loadFromLocalStorage,
-  }
-};
+	return {
+		userExists,
+		validateEmail,
+		writeToLocalStorage,
+		loadFromLocalStorage,
+	};
+}

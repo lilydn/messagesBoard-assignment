@@ -6,7 +6,6 @@ import MessagesContainer from '../Messages/MessagesContainer';
 import Form from '../Form/Form';
 import Messages from '../Messages/Messages';
 
-
 class Content extends React.Component {
 	state = { messagesList: null, avatarLoading: false };
 
@@ -40,7 +39,7 @@ class Content extends React.Component {
 		};
 		const updatedList = [...messagesList, newMessage];
 		this.setState({ messagesList: updatedList, avatarLoading: false });
-  };
+	};
 
 	render() {
 		const { messagesList, avatarLoading } = this.state;
@@ -52,7 +51,7 @@ class Content extends React.Component {
 				</FormContainer>
 
 				<MessagesContainer>
-					{messagesList && <Messages messagesList={messagesList}/>}
+					{messagesList && <Messages messagesList={messagesList} />}
 				</MessagesContainer>
 			</React.Fragment>
 		);

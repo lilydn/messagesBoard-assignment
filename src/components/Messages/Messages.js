@@ -1,4 +1,4 @@
-import React, { useState , useEffect }  from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FilterBar from './FilterBar';
 import Message from './Message';
@@ -6,8 +6,8 @@ import Message from './Message';
 const Wrapper = styled.div`
 	padding: 20px;
 	height: 100%;
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 `;
 
 const InnerWrapper = styled.div`
@@ -18,14 +18,12 @@ const InnerWrapper = styled.div`
 `;
 
 const Messages = ({ messagesList }) => {
-	
 	const [filteredMessages, setFilteredMessages] = useState(null);
 	const [term, setTerm] = useState('');
 
-  useEffect(() => {
+	useEffect(() => {
 		setFilteredMessages([...messagesList]);
-	},[messagesList]);
-
+	}, [messagesList]);
 
 	const renderMessages = () => {
 		const filter = filteredMessages.filter(
@@ -38,13 +36,10 @@ const Messages = ({ messagesList }) => {
 		});
 	};
 
-
 	return (
 		<Wrapper>
 			<FilterBar onInput={setTerm} term={term} />
-			<InnerWrapper>
-				{ filteredMessages && renderMessages() }
-			</InnerWrapper>
+			<InnerWrapper>{filteredMessages && renderMessages()}</InnerWrapper>
 		</Wrapper>
 	);
 };
